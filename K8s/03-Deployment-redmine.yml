@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: redmine-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: redmine
+  template:
+    metadata:
+      labels:
+        app: redmine
+    spec:
+      containers:
+        - image: amitabhajana/redmine-app:v2
+          name: redmine-app
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: RAILS_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: redmine-configmap
+                  key: RAILS_ENV
+            - name: DATABASE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: redmine-configmap
+                  key: DATABASE_NAME
+            - name: DATABASE_USER
+              valueFrom: 
+                secretKeyRef:
+                  name: redmine-secret
+                  key: DATABASE_USER
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redmine-secret
+                  key: DATABASE_PASSWORD
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: redmine-configmap
+                  key: DATABASE_HOST
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                configMapKeyRef:
+                  name: redmine-configmap
+                  key: SECRET_KEY_BASE
+        

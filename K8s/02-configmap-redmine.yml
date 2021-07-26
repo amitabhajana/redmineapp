@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: redmine-configmap
+data:
+  DATABASE_NAME: redmine
+  DATABASE_HOST: redmine.pgo.svc.cluster.local
+  RAILS_ENV: production
+  SECRET_KEY_BASE: yqvcCgsQQC+Rq/n6
+  

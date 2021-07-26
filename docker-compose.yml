@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  web:
+    image: amitabhajana/redmine:v1
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000" 
+    env_file: 
+      - .env
+    environment: 
+      RAILS_ENV: production
+      DATABASE_NAME: $DATABASE_NAME
+      DATABASE_USER: $DATABASE_USER
+      DATABASE_PASSWORD: $DATABASE_PASSWORD
+      DATABASE_HOST: $DATABASE_HOST
+      DATABASE_PORT: $DATABASE_PORT
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12.1
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: $DATABASE_NAME
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+    env_file: 
+      - .env
+
+volumes:
+  db-volume:
