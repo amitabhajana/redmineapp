@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   web:
-    image: amitabhajana/redmine:v1
+    image: amitabhajana/redmine-app:v2
     volumes:
       - .:/app
     ports:

@@ -50,4 +50,4 @@ spec:
                 configMapKeyRef:
                   name: redmine-configmap
                   key: SECRET_KEY_BASE
-        
+          
